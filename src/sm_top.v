@@ -35,7 +35,7 @@ module sm_top
     wire    [31:0]  imData;
     sm_rom reset_rom(imAddr, imData);
 
-    sm_cpu sm_cpu
+    sr_cpu sm_cpu
     (
         .clk        ( clk       ),
         .rst_n      ( rst_n     ),

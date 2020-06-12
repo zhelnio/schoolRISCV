@@ -15,7 +15,6 @@ module sm_testbench;
     reg         clk;
     reg         rst_n;
     reg  [ 4:0] regAddr;
-    wire [31:0] regData;
     wire        cpuClk;
 
     // ***** DUT start ************************
@@ -27,8 +26,8 @@ module sm_testbench;
         .clkDevide ( 4'b0    ),
         .clkEnable ( 1'b1    ),
         .clk       ( cpuClk  ),
-        .regAddr   ( regAddr ),
-        .regData   ( regData )
+        .regAddr   ( 5'b0    ),
+        .regData   (         )
     );
 
     defparam sm_top.sm_clk_divider.bypass = 1;
@@ -63,65 +62,59 @@ module sm_testbench;
             sm_top.sm_cpu.rf.rf[i] = 0;
     end
 
-    task disasmInstr
-    (
-        input [31:0] instr
-    );
-        reg        [ 5:0] cmdOper;
-        reg        [ 5:0] cmdFunk;
-        reg        [ 4:0] cmdRs;
-        reg        [ 4:0] cmdRt;
-        reg        [ 4:0] cmdRd;
-        reg        [ 4:0] cmdSa;
-        reg        [15:0] cmdImm;
-        reg signed [15:0] cmdImmS;
+    task disasmInstr;
 
-        begin
-            cmdOper = instr[31:26];
-            cmdFunk = instr[ 5:0 ];
-            cmdRs   = instr[25:21];
-            cmdRt   = instr[20:16];
-            cmdRd   = instr[15:11];
-            cmdSa   = instr[10:6 ];
-            cmdImm  = instr[15:0 ];
-            cmdImmS = instr[15:0 ];
+        reg [ 6:0] cmdOp;
+        reg [ 4:0] rd;
+        reg [ 2:0] cmdF3;
+        reg [ 4:0] rs1;
+        reg [ 4:0] rs2;
+        reg [ 4:0] shamt;
+        reg [ 6:0] cmdF7;
+        reg [31:0] immI;
+        reg signed [31:0] immB;
+        reg [31:0] immU;
 
-            $write("   ");
+    begin
+        cmdOp = sm_top.sm_cpu.cmdOp;
+        rd    = sm_top.sm_cpu.rd;
+        cmdF3 = sm_top.sm_cpu.cmdF3;
+        rs1   = sm_top.sm_cpu.rs1;
+        rs2   = sm_top.sm_cpu.rs2;
+        shamt = sm_top.sm_cpu.shamt;
+        cmdF7 = sm_top.sm_cpu.cmdF7;
+        immI  = sm_top.sm_cpu.immI;
+        immB  = sm_top.sm_cpu.immB;
+        immU  = sm_top.sm_cpu.immU;
 
-            casez( {cmdOper,cmdFunk} )
-                default               : if (instr == 32'b0) 
-                                            $write ("nop");
-                                        else
-                                            $write ("new/unknown");
+        $write("   ");
+        casez( { cmdF7, cmdF3, cmdOp } )
+            default :                                $write ("new/unknown");
+            { `RVF7_ADD,  `RVF3_ADD,  `RVOP_ADD  } : $write ("add   $%1d, $%1d, $%1d", rd, rs1, rs2);
+            { `RVF7_OR,   `RVF3_OR,   `RVOP_OR   } : $write ("or    $%1d, $%1d, $%1d", rd, rs1, rs2);
+            { `RVF7_SRLI, `RVF3_SRLI, `RVOP_SRLI } : $write ("srli  $%1d, $%1d, $%1d", rd, rs1, rs2);
+            { `RVF7_SLTU, `RVF3_SLTU, `RVOP_SLTU } : $write ("sltu  $%1d, $%1d, $%1d", rd, rs1, rs2);
+            { `RVF7_SUB,  `RVF3_SUB,  `RVOP_SUB  } : $write ("sub   $%1d, $%1d, $%1d", rd, rs1, rs2);
 
-                { `C_SPEC,  `F_ADDU } : $write ("addu  $%1d, $%1d, $%1d", cmdRd, cmdRs, cmdRt);
-                { `C_SPEC,  `F_OR   } : $write ("or    $%1d, $%1d, $%1d", cmdRd, cmdRs, cmdRt);
-                { `C_SPEC,  `F_SRL  } : $write ("srl   $%1d, $%1d, $%1d", cmdRd, cmdRs, cmdRt);
-                { `C_SPEC,  `F_SLTU } : $write ("sltu  $%1d, $%1d, $%1d", cmdRd, cmdRs, cmdRt);
-                { `C_SPEC,  `F_SUBU } : $write ("subu  $%1d, $%1d, $%1d", cmdRd, cmdRs, cmdRt);
+            { `RVF7_ANY,  `RVF3_ADDI, `RVOP_ADDI } : $write ("addi  $%1d, $%1d, 0x%8h",rd, rs1, immI);
+            { `RVF7_ANY,  `RVF3_ANY,  `RVOP_LUI  } : $write ("lui   $%1d, 0x%8h",      rd, immU);
 
-                { `C_ADDIU, `F_ANY  } : $write ("addiu $%1d, $%1d, %1d", cmdRt, cmdRs, cmdImm);
-                { `C_LUI,   `F_ANY  } : $write ("lui   $%1d, %1d",       cmdRt, cmdImm);
-
-                { `C_BEQ,   `F_ANY  } : $write ("beq   $%1d, $%1d, %1d", cmdRs, cmdRt, cmdImmS + 1);
-                { `C_BNE,   `F_ANY  } : $write ("bne   $%1d, $%1d, %1d", cmdRs, cmdRt, cmdImmS + 1);
-            endcase
-        end
-
+            { `RVF7_ANY,  `RVF3_BEQ,  `RVOP_BEQ  } : $write ("beq   $%1d, $%1d, 0x%8h (%1d)", rs1, rs2, immB, immB);
+            { `RVF7_ANY,  `RVF3_BNE,  `RVOP_BNE  } : $write ("bne   $%1d, $%1d, 0x%8h (%1d)", rs1, rs2, immB, immB);
+        endcase
+    end
     endtask
 
 
     //simulation debug output
     integer cycle; initial cycle = 0;
 
-    initial regAddr = 0; // get PC
-
     always @ (posedge clk)
     begin
-        $write ("%5d  pc = %2d  pcaddr = %h  instr = %h   v0 = %1d", 
-                  cycle, regData, (regData << 2), sm_top.sm_cpu.instr, sm_top.sm_cpu.rf.rf[2]);
+        $write ("%5d  pc = %2h instr = %h   v0 = %1d", 
+                  cycle, sm_top.sm_cpu.pc, sm_top.sm_cpu.instr, sm_top.sm_cpu.rf.rf[10]);
 
-        disasmInstr(sm_top.sm_cpu.instr);
+        disasmInstr();
 
         $write("\n");
 

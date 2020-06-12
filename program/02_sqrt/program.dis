@@ -1,0 +1,29 @@
+
+program.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <.text>:
+   0:	00000513          	addi	a0,zero,0
+   4:	05200593          	addi	a1,zero,82
+
+00000008 <sqrt>:
+   8:	400002b7          	lui	t0,0x40000
+   c:	00000313          	addi	t1,zero,0
+
+00000010 <L0>:
+  10:	005363b3          	or	t2,t1,t0
+  14:	00135313          	srli	t1,t1,0x1
+  18:	0075be33          	sltu	t3,a1,t2
+  1c:	000e1663          	bne	t3,zero,28 <L1>
+  20:	407585b3          	sub	a1,a1,t2
+  24:	00536333          	or	t1,t1,t0
+
+00000028 <L1>:
+  28:	0022d293          	srli	t0,t0,0x2
+  2c:	fe0292e3          	bne	t0,zero,10 <L0>
+  30:	00030513          	addi	a0,t1,0
+
+00000034 <end>:
+  34:	00000063          	beq	zero,zero,34 <end>
