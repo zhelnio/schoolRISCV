@@ -194,6 +194,7 @@ set_global_assignment -name HEX_FILE ../../program/program.hex
 set_global_assignment -name VERILOG_FILE ../../../src/sm_rom.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_register.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_hex_display.v
+set_global_assignment -name VERILOG_FILE ../../../src/sr_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_clk_divider.v
 set_global_assignment -name VERILOG_FILE ../marsohod_3.v

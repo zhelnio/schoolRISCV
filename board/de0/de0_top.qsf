@@ -553,6 +553,7 @@ set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
 
 set_global_assignment -name VERILOG_FILE ../de0_top.v
 
+set_global_assignment -name VERILOG_FILE ../../../src/sr_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_hex_display.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_register.v

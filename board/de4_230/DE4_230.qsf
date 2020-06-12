@@ -148,6 +148,7 @@ set_instance_assignment -name IO_STANDARD "2.5 V" -to SEG1_DP
 
 set_global_assignment -name VERILOG_FILE ../de4_230.v
 
+set_global_assignment -name VERILOG_FILE ../../../src/sr_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_hex_display.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_register.v

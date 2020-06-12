@@ -65,6 +65,7 @@ set_location_assignment PIN_M15 -to SW[3]
 
 set_global_assignment -name VERILOG_FILE ../de0_nano.v
 
+set_global_assignment -name VERILOG_FILE ../../../src/sr_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_hex_display.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_register.v

@@ -260,6 +260,7 @@ set_location_assignment PIN_AA2 -to GPIO[35]
 
 set_global_assignment -name VERILOG_FILE ../de10_lite.v
 
+set_global_assignment -name VERILOG_FILE ../../../src/sr_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_hex_display.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_register.v

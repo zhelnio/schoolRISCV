@@ -15,6 +15,7 @@ set_global_assignment   -name SDC_FILE     ../zeowaa.sdc
 
 set_global_assignment -name VERILOG_FILE ../zeowaa.v
 
+set_global_assignment -name VERILOG_FILE ../../../src/sr_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_hex_display.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_register.v
