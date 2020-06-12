@@ -103,7 +103,7 @@ module sr_cpu
     );
 
     //control
-    sm_control sm_control (
+    sr_control sm_control (
         .cmdOp      ( cmdOp        ),
         .cmdF3      ( cmdF3        ),
         .cmdF7      ( cmdF7        ),
@@ -161,7 +161,7 @@ module sr_decode
 
 endmodule
 
-module sm_control
+module sr_control
 (
     input     [ 6:0] cmdOp,
     input     [ 2:0] cmdF3,
