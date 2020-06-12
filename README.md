@@ -1,7 +1,12 @@
-# schoolMIPS
+# schoolRISCV
 
-A small MIPS CPU core originally based on Sarah L. Harris MIPS CPU ("Digital Design and Computer Arhitecture" by David Money Harris and Sarah L Harris). The first version of schoolMIPS was written for [Young Russian Chip Architects](http://www.silicon-russia.com/2017/06/09/arduino-and-fpga/) summer school.
+_Development is in progress..._
 
+A small RISCV CPU based on [schoolMIPS](https://github.com/MIPSfpga/schoolMIPS) project.
+
+schoolMIPS is a small MIPS CPU core originally based on Sarah L. Harris MIPS CPU ("Digital Design and Computer Arhitecture" by David Money Harris and Sarah L Harris). The first version of schoolMIPS was written for [Young Russian Chip Architects](http://www.silicon-russia.com/2017/06/09/arduino-and-fpga/) summer school.
+
+<!--
 The CPU have several versions (from simple to complex). Each of them is placed in the separate git branch:
 - **00_simple** - the simplest CPU without data memory, programs compiled with GNU gcc;
 - **01_mmio** - the same but with data memory, simple system bus and peripherals (pwm, gpio, als);
@@ -16,4 +21,4 @@ Examples of using this kernel as an element of a multiprocessor system:
 
 For docs and CPU diagrams please visit the project [wiki](https://github.com/MIPSfpga/schoolMIPS/wiki)
 
-![CPU diagram](../../wiki/img/schoolMIPS_diagram.gif) 
+![CPU diagram](../../wiki/img/schoolMIPS_diagram.gif)  -->
