@@ -24,25 +24,10 @@ module sr_cpu
     wire        pcSrc;
     wire        regWrite;
     wire        aluSrc;
-    wire        regSrc;
+    wire        wdSrc;
     wire  [2:0] aluControl;
 
-    //program counter
-    wire [31:0] pc;
-    wire [31:0] pcBranch;
-    wire [31:0] pcNext  = pc + 4;
-    wire [31:0] pc_new   = ~pcSrc ? pcNext : pcBranch;
-    sm_register r_pc(clk ,rst_n, pc_new, pc);
-
-    //program memory access
-    assign imAddr = pc >> 2;
-    wire [31:0] instr = imData;
-
-    //debug register access
-    wire [31:0] rd0;
-    assign regData = (regAddr != 0) ? rd0 : pc;
-
-    //instruction decode
+    //instruction decode wires
     wire [ 6:0] cmdOp;
     wire [ 4:0] rd;
     wire [ 2:0] cmdF3;
@@ -54,6 +39,18 @@ module sr_cpu
     wire [31:0] immB;
     wire [31:0] immU;
 
+    //program counter
+    wire [31:0] pc;
+    wire [31:0] pcBranch = pc + immB;
+    wire [31:0] pcPlus4  = pc + 4;
+    wire [31:0] pcNext   = pcSrc ? pcBranch : pcPlus4;
+    sm_register r_pc(clk ,rst_n, pcNext, pc);
+
+    //program memory access
+    assign imAddr = pc >> 2;
+    wire [31:0] instr = imData;
+
+    //instruction decode
     sr_decode id (
         .instr      ( instr        ),
         .cmdOp      ( cmdOp        ),
@@ -68,12 +65,11 @@ module sr_cpu
         .immU       ( immU         ) 
     );
 
-    wire [31:0] aluResult;
-
     //register file
+    wire [31:0] rd0;
     wire [31:0] rd1;
     wire [31:0] rd2;
-    wire [31:0] wd3 = regSrc ? immU : aluResult;
+    wire [31:0] wd3;
 
     sm_register_file rf (
         .clk        ( clk          ),
@@ -88,19 +84,23 @@ module sr_cpu
         .we3        ( regWrite     )
     );
 
-    assign pcBranch = pc + immB;
+    //debug register access
+    assign regData = (regAddr != 0) ? rd0 : pc;
 
     //alu
     wire [31:0] srcB = aluSrc ? immI : rd2;
+    wire [31:0] aluResult;
 
     sr_alu alu (
         .srcA       ( rd1          ),
         .srcB       ( srcB         ),
         .oper       ( aluControl   ),
-        .shift      ( shamt        ),
+        .shamt      ( shamt        ),
         .zero       ( aluZero      ),
         .result     ( aluResult    ) 
     );
+
+    assign wd3 = wdSrc ? immU : aluResult;
 
     //control
     sr_control sm_control (
@@ -111,7 +111,7 @@ module sr_cpu
         .pcSrc      ( pcSrc        ),
         .regWrite   ( regWrite     ),
         .aluSrc     ( aluSrc       ),
-        .regSrc     ( regSrc       ),
+        .wdSrc      ( wdSrc        ),
         .aluControl ( aluControl   ) 
     );
 
@@ -170,7 +170,7 @@ module sr_control
     output           pcSrc, 
     output reg       regWrite, 
     output reg       aluSrc,
-    output reg       regSrc,
+    output reg       wdSrc,
     output reg [2:0] aluControl
 );
     reg          branch;
@@ -182,7 +182,7 @@ module sr_control
         condZero    = 1'b0;
         regWrite    = 1'b0;
         aluSrc      = 1'b0;
-        regSrc      = 1'b0;
+        wdSrc      = 1'b0;
         aluControl  = `ALU_ADD;
 
         casez( {cmdF7, cmdF3, cmdOp} )
@@ -193,7 +193,7 @@ module sr_control
             { `RVF7_SUB,  `RVF3_SUB,  `RVOP_SUB  } : begin regWrite = 1'b1; aluControl = `ALU_SUBU; end
 
             { `RVF7_ANY,  `RVF3_ADDI, `RVOP_ADDI } : begin regWrite = 1'b1; aluSrc = 1'b1; aluControl = `ALU_ADD; end
-            { `RVF7_ANY,  `RVF3_ANY,  `RVOP_LUI  } : begin regWrite = 1'b1; regSrc = 1'b1; end
+            { `RVF7_ANY,  `RVF3_ANY,  `RVOP_LUI  } : begin regWrite = 1'b1; wdSrc  = 1'b1; end
 
             { `RVF7_ANY,  `RVF3_BEQ,  `RVOP_BEQ  } : begin branch = 1'b1; condZero = 1'b1; aluControl = `ALU_SUBU; end
             { `RVF7_ANY,  `RVF3_BNE,  `RVOP_BNE  } : begin branch = 1'b1; aluControl = `ALU_SUBU; end
@@ -206,7 +206,7 @@ module sr_alu
     input  [31:0] srcA,
     input  [31:0] srcB,
     input  [ 2:0] oper,
-    input  [ 4:0] shift,
+    input  [ 4:0] shamt,
     output        zero,
     output reg [31:0] result
 );
@@ -215,7 +215,7 @@ module sr_alu
             default   : result = srcA + srcB;
             `ALU_ADD  : result = srcA + srcB;
             `ALU_OR   : result = srcA | srcB;
-            `ALU_SRLI : result = srcA >> shift;
+            `ALU_SRLI : result = srcA >> shamt;
             `ALU_SLTU : result = (srcA < srcB) ? 1 : 0;
             `ALU_SUBU : result = srcA - srcB;
         endcase
