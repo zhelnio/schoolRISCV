@@ -33,7 +33,6 @@ module sr_cpu
     wire [ 2:0] cmdF3;
     wire [ 4:0] rs1;
     wire [ 4:0] rs2;
-    wire [ 4:0] shamt;
     wire [ 6:0] cmdF7;
     wire [31:0] immI;
     wire [31:0] immB;
@@ -58,7 +57,6 @@ module sr_cpu
         .cmdF3      ( cmdF3        ),
         .rs1        ( rs1          ),
         .rs2        ( rs2          ),
-        .shamt      ( shamt        ),
         .cmdF7      ( cmdF7        ),
         .immI       ( immI         ),
         .immB       ( immB         ),
@@ -95,7 +93,6 @@ module sr_cpu
         .srcA       ( rd1          ),
         .srcB       ( srcB         ),
         .oper       ( aluControl   ),
-        .shamt      ( shamt        ),
         .zero       ( aluZero      ),
         .result     ( aluResult    ) 
     );
@@ -125,7 +122,6 @@ module sr_decode
     output     [ 2:0] cmdF3,
     output     [ 4:0] rs1,
     output     [ 4:0] rs2,
-    output     [ 4:0] shamt,
     output     [ 6:0] cmdF7,
     output reg [31:0] immI,
     output reg [31:0] immB,
@@ -136,7 +132,6 @@ module sr_decode
     assign cmdF3 = instr[14:12];
     assign rs1   = instr[19:15];
     assign rs2   = instr[24:20];
-    assign shamt = instr[24:20];
     assign cmdF7 = instr[31:25];
 
     // I-immediate
@@ -188,7 +183,7 @@ module sr_control
         casez( {cmdF7, cmdF3, cmdOp} )
             { `RVF7_ADD,  `RVF3_ADD,  `RVOP_ADD  } : begin regWrite = 1'b1; aluControl = `ALU_ADD;  end
             { `RVF7_OR,   `RVF3_OR,   `RVOP_OR   } : begin regWrite = 1'b1; aluControl = `ALU_OR;   end
-            { `RVF7_SRLI, `RVF3_SRLI, `RVOP_SRLI } : begin regWrite = 1'b1; aluControl = `ALU_SRLI; end
+            { `RVF7_SRL,  `RVF3_SRL,  `RVOP_SRL  } : begin regWrite = 1'b1; aluControl = `ALU_SRL;  end
             { `RVF7_SLTU, `RVF3_SLTU, `RVOP_SLTU } : begin regWrite = 1'b1; aluControl = `ALU_SLTU; end
             { `RVF7_SUB,  `RVF3_SUB,  `RVOP_SUB  } : begin regWrite = 1'b1; aluControl = `ALU_SUBU; end
 
@@ -206,7 +201,6 @@ module sr_alu
     input  [31:0] srcA,
     input  [31:0] srcB,
     input  [ 2:0] oper,
-    input  [ 4:0] shamt,
     output        zero,
     output reg [31:0] result
 );
@@ -215,7 +209,7 @@ module sr_alu
             default   : result = srcA + srcB;
             `ALU_ADD  : result = srcA + srcB;
             `ALU_OR   : result = srcA | srcB;
-            `ALU_SRLI : result = srcA >> shamt;
+            `ALU_SRL  : result = srcA >> srcB [4:0];
             `ALU_SLTU : result = (srcA < srcB) ? 1 : 0;
             `ALU_SUBU : result = srcA - srcB;
         endcase
