@@ -1,7 +1,7 @@
 
 `timescale 1 ns / 100 ps
 
-`include "sm_cpu.vh"
+`include "sr_cpu.vh"
 
 `ifndef SIMULATION_CYCLES
     `define SIMULATION_CYCLES 120

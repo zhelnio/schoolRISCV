@@ -346,7 +346,6 @@ set_location_assignment PIN_AE17 -to GPIO_1[35]
 set_global_assignment -name VERILOG_FILE ../de10_nano.v
 
 set_global_assignment -name VERILOG_FILE ../../../src/sr_cpu.v
-set_global_assignment -name VERILOG_FILE ../../../src/sm_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_hex_display.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_register.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_rom.v
