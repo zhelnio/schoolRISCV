@@ -1,11 +1,8 @@
 /*
- * schoolMIPS - small MIPS CPU for "Young Russian Chip Architects" 
- *              summer school ( yrca@googlegroups.com )
- *
- * originally based on Sarah L. Harris MIPS CPU 
+ * schoolRISCV - small RISCV CPU  
  * 
- * Copyright(c) 2017 Stanislav Zhelnio 
- *                   Aleksandr Romanov 
+ * Copyright(c) 2020 Stanislav Zhelnio 
+ *                   
  */ 
 
 `include "sm_cpu.vh"
