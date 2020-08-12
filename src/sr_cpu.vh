@@ -13,7 +13,7 @@
 `define ALU_OR      3'b001
 `define ALU_SRL     3'b010
 `define ALU_SLTU    3'b011
-`define ALU_SUBU    3'b100
+`define ALU_SUB     3'b100
 
 // instruction opcode
 `define RVOP_ADDI   7'b0010011
