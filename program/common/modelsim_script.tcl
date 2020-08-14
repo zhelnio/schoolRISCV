@@ -1,4 +1,5 @@
 
+# exec rm -rf work
 vlib work
 
 set p0 -vlog01compat
@@ -12,7 +13,7 @@ set s1 ../../../testbench/*.v
 
 vlog $p0 $p1  $i0 $i1  $s0 $s1
 
-vsim work.sm_testbench
+vsim -voptargs="+acc" work.sm_testbench
 
 # add wave -radix hex sim:/sm_testbench/*
 add wave -radix hex sim:/sm_testbench/sm_top/sm_cpu/*
