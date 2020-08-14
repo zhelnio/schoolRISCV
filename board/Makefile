@@ -2,24 +2,28 @@
 # small piece of Makefile magic to simplify code support
 # this is only for schoolRISCV maintainers
 
-BOARDS = $(filter-out program/., $(wildcard */.))
-BOARDS_ALTERA = $(filter-out nexys%, $(BOARDS))
-BOARDS_XILINX = $(filter nexys%, $(BOARDS))
+BOARDS_ALL = $(filter-out program/., $(wildcard */.))
 
-# TODO: add Xilinx boards support
+# TODO: nexys   - add Xilinx boards support
+#       de4_230 - needs Quartus license
+#       de0     - the latest Quartus version that has support for Cyclone III is 13.1
+BOARDS_IGNOR = $(filter nexys% de4_230% de0%, $(BOARDS_ALL)) 
+
+BOARDS = $(filter-out $(BOARDS_IGNOR), $(BOARDS_ALL))
+
 TARGETS = copy build clean
-$(TARGETS): $(BOARDS_ALTERA)
+$(TARGETS): $(BOARDS)
 
-.PHONY: $(BOARDS_ALTERA)
+.PHONY: $(BOARDS)
 
-COPY_TARGET = $(filter-out de10_lite%, $(BOARDS_ALTERA))
+COPY_TARGET = $(filter-out de10_lite%, $(BOARDS))
 
 $(COPY_TARGET)::
 ifeq ($(MAKECMDGOALS), copy)
 	cp de10_lite/Makefile $@/Makefile
 endif
 
-$(BOARDS_ALTERA)::
+$(BOARDS)::
 ifeq ($(MAKECMDGOALS), build)
 	$(MAKE) -C $@ $(MAKECMDGOALS)
 endif

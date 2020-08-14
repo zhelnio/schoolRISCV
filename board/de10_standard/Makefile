@@ -20,17 +20,18 @@ all: create build
 clean:
 	rm -rf $(BUILD_DIR)
 
-create:
-	rm -rf $(BUILD_DIR)
+create: clean $(BUILD_DIR)
+
+$(BUILD_DIR):
 	mkdir  $(BUILD_DIR)
 	cp *.qpf $(BUILD_DIR)
 	cp *.qsf $(BUILD_DIR)
 	cp *.sdc $(BUILD_DIR)
 
-open:
+open: $(BUILD_DIR)
 	cd $(BUILD_DIR) && quartus $(PROJECT_NAME).qpf &
 
-build:
+build: $(BUILD_DIR)
 	cd $(BUILD_DIR) && quartus_sh --flow compile $(PROJECT_NAME)
 
 load:

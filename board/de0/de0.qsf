@@ -25,7 +25,7 @@
 
 set_global_assignment -name FAMILY "Cyclone III"
 set_global_assignment -name DEVICE EP3C16F484C6
-set_global_assignment -name TOP_LEVEL_ENTITY de0_top
+set_global_assignment -name TOP_LEVEL_ENTITY de0
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "8.0 SP1"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:06:14  MARCH 06, 2009"
 set_global_assignment -name LAST_QUARTUS_VERSION 13.1
@@ -551,7 +551,7 @@ set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS R
 
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
 
-set_global_assignment -name VERILOG_FILE ../de0_top.v
+set_global_assignment -name VERILOG_FILE ../de0.v
 
 set_global_assignment -name VERILOG_FILE ../../../src/sr_cpu.v
 set_global_assignment -name VERILOG_FILE ../../../src/sm_hex_display.v
@@ -565,5 +565,5 @@ set_global_assignment -name SEARCH_PATH ../../../src
 
 set_global_assignment -name HEX_FILE ../../program/program.hex
 
-set_global_assignment -name SDC_FILE de0_top.sdc
+set_global_assignment -name SDC_FILE de0.sdc
 
