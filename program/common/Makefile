@@ -26,7 +26,7 @@ program.mem: program.elf
 	$(OC) program.elf -O verilog program.mem
 
 program.hex: program.mem
-	cat program.mem | $(COMMON)/hex32.awk > program.hex
+	$(COMMON)/hex32.py program.mem program.hex
 
 # simulation in modelsim
 modelsim: program.hex
