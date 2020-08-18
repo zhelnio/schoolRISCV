@@ -13,6 +13,9 @@ endif
 
 install_ubuntu:
 	sudo apt install $(UBUNTU_PKG)
-ifeq (, $(shell which code))
+
+install_vscode:
 	sudo snap install code --classic
-endif
+	code --install-extension ms-vscode.cpptools
+	code --install-extension zhwu95.riscv
+	code --install-extension eirikpre.systemverilog
