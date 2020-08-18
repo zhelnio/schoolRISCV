@@ -1,7 +1,7 @@
 
 # Makefile example that can be used with common RISC-V toolchain
 
-CROSS_COMPILE ?= riscv64-unknown-elf-
+CROSS_COMPILE ?= riscv64-linux-gnu-
 
 CC = $(CROSS_COMPILE)gcc
 OD = $(CROSS_COMPILE)objdump
