@@ -38,3 +38,26 @@ modelsim: program.hex
 # copy to board
 board: program.hex
 	cp ./program.hex ../../board/program
+
+#########################################################
+# Icarus verilog simulation
+
+TOPMODULE=sm_testbench
+IVARG = -g2005
+IVARG += -D ICARUS
+IVARG += -I ../
+IVARG += -I ../../../src
+IVARG += -I ../../../testbench
+IVARG += -s $(TOPMODULE)
+IVARG += ../../../src/*.v
+IVARG += ../../../testbench/*.v
+
+icarus:
+	rm -rf sim
+	mkdir sim
+	cp *.hex sim
+	cd sim && iverilog $(IVARG)
+	cd sim && vvp -la.lst a.out -n
+	
+gtkwave:
+	cd sim && gtkwave dump.vcd
