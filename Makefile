@@ -1,17 +1,18 @@
 
 
-install_ubuntu:
-	sudo apt install git iverilog gtkwave
-
+UBUNTU_PKG  = git iverilog gtkwave
 ifeq (, $(shell which java))
-	sudo apt install default-jre
+UBUNTU_PKG += default-jre
 endif
-
-ifeq (, $(shell which code))
-	sudo apt install snap
-	sudo snap install code --classic
+ifeq (, $(shell which snap))
+UBUNTU_PKG += snap
 endif
-
 ifeq (, $(shell which riscv64-linux-gnu-gcc))
-	sudo apt install gcc-riscv64-linux-gnu
+UBUNTU_PKG += gcc-riscv64-linux-gnu
+endif
+
+install_ubuntu:
+	sudo apt install $(UBUNTU_PKG)
+ifeq (, $(shell which code))
+	sudo snap install code --classic
 endif
