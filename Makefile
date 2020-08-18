@@ -1,11 +1,8 @@
 
 
-UBUNTU_PKG  = git iverilog gtkwave
+UBUNTU_PKG  = git make iverilog gtkwave snap
 ifeq (, $(shell which java))
 UBUNTU_PKG += default-jre
-endif
-ifeq (, $(shell which snap))
-UBUNTU_PKG += snap
 endif
 ifeq (, $(shell which riscv64-linux-gnu-gcc))
 UBUNTU_PKG += gcc-riscv64-linux-gnu
