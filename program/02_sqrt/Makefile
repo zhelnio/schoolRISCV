@@ -22,7 +22,7 @@ modelsim: program.hex
 	rm -rf sim
 	mkdir sim
 	cp program.hex sim/
-	cd sim && vsim -novopt -do $(COMMON)/modelsim_script.tcl
+	cd sim && vsim -do $(COMMON)/modelsim_script.tcl
 
 # copy to board
 board: program.hex
