@@ -1,4 +1,6 @@
 
+# Makefile example that can be used with common RISC-V toolchain
+
 default: build
 
 help:
@@ -13,12 +15,14 @@ help:
 	$(info make sim      - run simulation in modelsim (if installed) or using icarus)
 	@true
 
+COMMON = $(CURDIR)/../common
+
 # common targets
 clean:
 	rm -f *.elf *.dis *.mem *.hex
 
 # run rars
-RARS = java -jar ../common/rars1_4.jar
+RARS = java -jar $(COMMON)/rars1_4.jar
 
 rars:
 	$(RARS)
@@ -34,22 +38,44 @@ sim: $(DEFAULT_SIM)
 
 #########################################################
 # software build
-build: program.hex
 
-# compile to hex memory image using RARS
-program.hex: main.S
-	$(RARS) nc a dump .text HexText program.hex main.S
+# embedded toolchain is prefered
+CROSS_COMPILE ?= riscv64-unknown-elf-
+# but it is not available in ubuntu 18.04 repo
+ifeq (, $(shell which $(CROSS_COMPILE)gcc))
+ ifneq (, $(shell which riscv64-linux-gnu-gcc))
+  CROSS_COMPILE = riscv64-linux-gnu-
+ endif
+endif
+
+CC = $(CROSS_COMPILE)gcc
+OD = $(CROSS_COMPILE)objdump
+OC = $(CROSS_COMPILE)objcopy
+
+build: program.dis program.hex
+
+program.elf: main.S
+	$(CC) -o $@ $^ -O0 -march=rv32i -mabi=ilp32 -nostdlib -T $(COMMON)/program.ld
+
+program.dis: program.elf
+	$(OD) -M no-aliases -Dz -j .text $< > $@
+
+program.mem: program.elf
+	$(OC) $< -O verilog $@
+
+program.hex: program.mem
+	$(COMMON)/hex32.py $< $@
 
 # copy to board
 board: program.hex
-	cp ./program.hex ../../board/program
+	cp $^ ../../board/program
 
 #########################################################
 # simulation in modelsim
 modelsim: program.hex
 	rm -rf sim
 	mkdir sim
-	cp program.hex sim/
+	cp $^ sim/
 	cd sim && vsim -do ../../common/modelsim_script.tcl
 
 #########################################################
@@ -68,7 +94,7 @@ IVARG += ../../../testbench/*.v
 icarus: program.hex
 	rm -rf sim
 	mkdir sim
-	cp *.hex sim
+	cp $^ sim
 	cd sim && iverilog $(IVARG)
 	cd sim && vvp -la.lst a.out -n
 	
