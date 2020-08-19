@@ -1,7 +1,14 @@
 
 # Makefile example that can be used with common RISC-V toolchain
 
-CROSS_COMPILE ?= riscv64-linux-gnu-
+# embedded toolchain is prefered
+CROSS_COMPILE ?= riscv64-unknown-elf-
+# but it is not available in ubuntu 18.04 repo
+ifeq (, $(shell which $(CROSS_COMPILE)gcc))
+ ifneq (, $(shell which riscv64-linux-gnu-gcc))
+  CROSS_COMPILE = riscv64-linux-gnu-
+ endif
+endif
 
 CC = $(CROSS_COMPILE)gcc
 OD = $(CROSS_COMPILE)objdump
