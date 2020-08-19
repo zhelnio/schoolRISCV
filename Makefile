@@ -39,18 +39,20 @@ QUARTUS_BIN ?= $(QUARTUS_DIR)/quartus/bin/quartus
 clean:
 	rm -rf $(TMPDIR)
 
-$(TMPDIR):
+install_quartus: $(QUARTUS_PKG) $(QUARTUS_BIN)
+
+install_quartus_download: $(QUARTUS_PKG)
+install_quartus_deploy: $(QUARTUS_BIN)
+
+$(QUARTUS_PKG):
 	mkdir -p $(TMPDIR)
-
-$(QUARTUS_PKG): $(TMPDIR)
-	$(info # Quartus package download start)
+  ifeq (,$(wildcard $(QUARTUS_PKG)))
+	@echo '# Quartus package download start'
 	wget -O $@ $(QUARTUS_URL)
-	$(info # Quartus package download end)
-
-$(QUARTUS_RUN): $(QUARTUS_PKG)
-	$(info # Quartus package unpack start)
-	cd $(TMPDIR); tar -xf $(QUARTUS_PKG)
-	$(info # Quartus package unpack end)
+	@echo '# Quartus package download end)'
+  else
+	@echo '# Quartus package found)'
+  endif
 
 QUARTUS_RUN_OPT  = --unattendedmodeui minimal
 QUARTUS_RUN_OPT += --mode unattended
@@ -61,21 +63,22 @@ QUARTUS_RUN_OPT += --installdir $(QUARTUS_DIR)
 QUARTUS_LIBS = libc6:i386 libncurses5:i386 libxtst6:i386 libxft2:i386 libc6:i386 libncurses5:i386 \
 			   libstdc++6:i386 lib32z1 lib32ncurses5 
 
-$(QUARTUS_BIN): $(QUARTUS_RUN)
-	$(info # Quartus package install start)
+$(QUARTUS_BIN): $(QUARTUS_PKG)
+	@echo '# Quartus package unpack start)'
+	cd $(TMPDIR); tar -xf $(QUARTUS_PKG)
+	@echo '# Quartus package unpack end)'
+
+	@echo '# Quartus package dependences install start)'
 	sudo dpkg --add-architecture i386
 	sudo apt update
 	sudo apt install $(QUARTUS_LIBS)
-	$(QUARTUS_RUN) $(QUARTUS_RUN_OPT)
-	$(info # Quartus package install end)
+	@echo '# Quartus package dependences install stop)'
 
-$(QUARTUS_PROFILE):
-	$(info # Quartus profile settings start)
+	@echo '# Quartus package install start)'
+	$(QUARTUS_RUN) $(QUARTUS_RUN_OPT)
+	@echo '# Quartus package install end)'
+
+	@echo '# Quartus profile settings start)'
 	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/quartus/bin' | sudo tee -a $@
 	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/modelsim_ase/bin' | sudo tee -a $@
-	$(info # Quartus profile settings end)
-
-test: $(QUARTUS_BIN)
-
-
-install_quartus:
+	@echo '# Quartus profile settings end)'
