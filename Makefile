@@ -29,6 +29,7 @@ TMPDIR      ?= $(CURDIR)/tmp
 QUARTUS_TAR ?= $(notdir $(QUARTUS_URL))
 QUARTUS_PKG ?= $(TMPDIR)/$(QUARTUS_TAR)
 QUARTUS_RUN ?= $(TMPDIR)/components/QuartusLiteSetup-20.1.0.711-linux.run
+QUARTUS_PROFILE ?= /etc/profile.d/quartus.sh
 
 # QUARTUS_DIR = /opt/altera/quartus_lite/20.1
 
@@ -57,13 +58,24 @@ QUARTUS_RUN_OPT += --disable-components arria_lite,max,modelsim_ae
 QUARTUS_RUN_OPT += --accept_eula 1
 QUARTUS_RUN_OPT += --installdir $(QUARTUS_DIR)
 
-$(QUARTUS_BIN):
+QUARTUS_LIBS = libc6:i386 libncurses5:i386 libxtst6:i386 libxft2:i386 libc6:i386 libncurses5:i386 \
+			   libstdc++6:i386 lib32z1 lib32ncurses5 
+
+$(QUARTUS_BIN): $(QUARTUS_RUN)
 	$(info # Quartus package install start)
+	sudo dpkg --add-architecture i386
+	sudo apt update
+	sudo apt install $(QUARTUS_LIBS)
 	$(QUARTUS_RUN) $(QUARTUS_RUN_OPT)
 	$(info # Quartus package install end)
 
+$(QUARTUS_PROFILE):
+	$(info # Quartus profile settings start)
+	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/quartus/bin' | sudo tee -a $@
+	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/modelsim_ase/bin' | sudo tee -a $@
+	$(info # Quartus profile settings end)
+
 test: $(QUARTUS_BIN)
-	
-	# @echo $(notdir $(QUARTUS_URL))
+
 
 install_quartus:
