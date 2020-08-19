@@ -14,25 +14,25 @@ help:
 	@true
 
 CABLE_NAME   ?= "USB-Blaster"
-BUILD_DIR    ?= project
 PROJECT_NAME ?= $(notdir $(CURDIR))
+PROJECT_DIR  ?= project
 
 all: create build
 
 clean:
-	rm -rf $(BUILD_DIR)
+	rm -rf $(PROJECT_DIR)
 
-create: clean $(BUILD_DIR)
+create: clean $(PROJECT_DIR)
 
-$(BUILD_DIR):
-	mkdir  $(BUILD_DIR)
-	cp $(PROJECT_NAME).qpf_ $(BUILD_DIR)/$(PROJECT_NAME).qpf
-	cp $(PROJECT_NAME).qsf_ $(BUILD_DIR)/$(PROJECT_NAME).qsf
-	cp $(PROJECT_NAME).sdc_ $(BUILD_DIR)/$(PROJECT_NAME).sdc
+$(PROJECT_DIR):
+	mkdir  $(PROJECT_DIR)
+	cp $(PROJECT_NAME).qpf_ $(PROJECT_DIR)/$(PROJECT_NAME).qpf
+	cp $(PROJECT_NAME).qsf_ $(PROJECT_DIR)/$(PROJECT_NAME).qsf
+	cp $(PROJECT_NAME).sdc_ $(PROJECT_DIR)/$(PROJECT_NAME).sdc
 
-QUARTUS     := cd $(BUILD_DIR) && quartus
-QUARTUS_SH  := cd $(BUILD_DIR) && quartus_sh
-QUARTUS_PGM := cd $(BUILD_DIR) && quartus_pgm
+QUARTUS     := cd $(PROJECT_DIR) && quartus
+QUARTUS_SH  := cd $(PROJECT_DIR) && quartus_sh
+QUARTUS_PGM := cd $(PROJECT_DIR) && quartus_pgm
 
 ifdef WSLENV
   QUARTUS     := $(QUARTUS).exe
@@ -40,10 +40,10 @@ ifdef WSLENV
   QUARTUS_PGM := $(QUARTUS_PGM).exe
 endif
 
-open: $(BUILD_DIR)
+open: $(PROJECT_DIR)
 	$(QUARTUS) $(PROJECT_NAME).qpf &
 
-build: $(BUILD_DIR)
+build: $(PROJECT_DIR)
 	$(QUARTUS_SH) --flow compile $(PROJECT_NAME)
 
 load:
