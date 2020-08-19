@@ -7,7 +7,7 @@ help:
 	$(info make help   - show this message)
 	$(info make all    - clean, create the board project and run the synthesis)
 	$(info make clean  - delete synth folder)
-	$(info make create - create the board project)
+	$(info make create - create the board project(default))
 	$(info make open   - open the board project)
 	$(info make build  - build the board project)
 	$(info make load   - program the FPGA board)
