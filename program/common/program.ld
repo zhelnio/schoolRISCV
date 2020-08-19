@@ -7,13 +7,4 @@ ENTRY(hwreset)
 SECTIONS
 {
   .text = .;
-
-/*
-    /DISCARD/ :
-    {
-      *(.MIPS.abiflags)
-      *(.reginfo)
-      *(.gnu.attributes)
-    }
-*/
 }
