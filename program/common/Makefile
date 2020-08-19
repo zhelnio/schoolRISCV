@@ -1,6 +1,44 @@
 
 # Makefile example that can be used with common RISC-V toolchain
 
+default: build
+
+help:
+	$(info make help     - show this message)
+	$(info make clean    - delete folder with simulation data)
+	$(info make rars     - run RISC-V CPU simulator)
+	$(info make build    - create .hex program image (default))
+	$(info make board    - copy .hex to boards/program)
+	$(info make modelsim - run simulation using modelsim)
+	$(info make icarus   - run simulation using icarus verilog)
+	$(info make gtkwave  - open icarus verilog simulation results in gtkwave)
+	$(info make sim      - run simulation in modelsim (if installed) or using icarus)
+	@true
+
+COMMON = $(CURDIR)/../common
+
+# common targets
+clean:
+	rm -f *.elf *.dis *.mem *.hex
+
+# run rars
+RARS = java -jar $(COMMON)/rars1_4.jar
+
+rars:
+	$(RARS)
+
+# simulate with modelsim or icarus 
+# if the first one is not found
+DEFAULT_SIM = modelsim
+ifeq (, $(shell which vsim))
+  DEFAULT_SIM = icarus
+endif
+
+sim: $(DEFAULT_SIM)
+
+#########################################################
+# software build
+
 # embedded toolchain is prefered
 CROSS_COMPILE ?= riscv64-unknown-elf-
 # but it is not available in ubuntu 18.04 repo
@@ -14,40 +52,34 @@ CC = $(CROSS_COMPILE)gcc
 OD = $(CROSS_COMPILE)objdump
 OC = $(CROSS_COMPILE)objcopy
 
-COMMON = $(CURDIR)/../common
-
-# common targets
-clean:
-	rm -f *.elf *.dis *.mem *.hex
-
-# software build
 build: program.dis program.hex
 
 program.elf: main.S
-	$(CC) -o program.elf main.S -O0 -march=rv32i -mabi=ilp32 -nostdlib -T $(COMMON)/program.ld
+	$(CC) -o $@ $^ -O0 -march=rv32i -mabi=ilp32 -nostdlib -T $(COMMON)/program.ld
 
 program.dis: program.elf
-	$(OD) -M no-aliases -Dz -j .text program.elf > program.dis
+	$(OD) -M no-aliases -Dz -j .text $< > $@
 
 program.mem: program.elf
-	$(OC) program.elf -O verilog program.mem
+	$(OC) $< -O verilog $@
 
 program.hex: program.mem
-	$(COMMON)/hex32.py program.mem program.hex
+	$(COMMON)/hex32.py $< $@
 
+# copy to board
+board: program.hex
+	cp $^ ../../board/program
+
+#########################################################
 # simulation in modelsim
 modelsim: program.hex
 	rm -rf sim
 	mkdir sim
-	cp program.hex sim/
-	cd sim && vsim -novopt -do $(COMMON)/modelsim_script.tcl
-
-# copy to board
-board: program.hex
-	cp ./program.hex ../../board/program
+	cp $^ sim/
+	cd sim && vsim -do ../../common/modelsim_script.tcl
 
 #########################################################
-# Icarus verilog simulation
+# simulation in Icarus verilog
 
 TOPMODULE=sm_testbench
 IVARG = -g2005
@@ -59,10 +91,10 @@ IVARG += -s $(TOPMODULE)
 IVARG += ../../../src/*.v
 IVARG += ../../../testbench/*.v
 
-icarus:
+icarus: program.hex
 	rm -rf sim
 	mkdir sim
-	cp *.hex sim
+	cp $^ sim
 	cd sim && iverilog $(IVARG)
 	cd sim && vvp -la.lst a.out -n
 	
