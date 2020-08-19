@@ -24,9 +24,9 @@ create: clean $(BUILD_DIR)
 
 $(BUILD_DIR):
 	mkdir  $(BUILD_DIR)
-	cp *.qpf $(BUILD_DIR)
-	cp *.qsf $(BUILD_DIR)
-	cp *.sdc $(BUILD_DIR)
+	cp $(PROJECT_NAME).qpf_ $(BUILD_DIR)/$(PROJECT_NAME).qpf
+	cp $(PROJECT_NAME).qsf_ $(BUILD_DIR)/$(PROJECT_NAME).qsf
+	cp $(PROJECT_NAME).sdc_ $(BUILD_DIR)/$(PROJECT_NAME).sdc
 
 QUARTUS     := cd $(BUILD_DIR) && quartus
 QUARTUS_SH  := cd $(BUILD_DIR) && quartus_sh
