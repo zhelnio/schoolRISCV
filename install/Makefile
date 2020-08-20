@@ -1,4 +1,5 @@
 
+# small piece of Makefile magic to simplify HDL tools install
 
 install:
 	# toolchain + simulator
@@ -18,7 +19,7 @@ APT_INSTALL = sudo apt-get --yes install
 install_tools:
 	# common packages
 	$(APT_INSTALL) git make iverilog gtkwave
-	# java
+	# default jre if no one found
   ifeq (, $(shell which java))
 	$(APT_INSTALL) default-jre
   endif
@@ -43,8 +44,6 @@ QUARTUS_URL ?= http://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib
 QUARTUS_TMP ?= tmp
 QUARTUS_TAR ?= $(notdir $(QUARTUS_URL))
 QUARTUS_RUN ?= $(QUARTUS_TMP)/components/QuartusLiteSetup-20.1.0.711-linux.run
-QUARTUS_PROFILE ?= /etc/profile.d/quartus.sh
-
 # QUARTUS_DIR = /opt/altera/quartus_lite/20.1
 QUARTUS_DIR ?= $(HOME)/intelFPGA_lite/20.1
 
@@ -58,7 +57,9 @@ QUARTUS_RUN_OPT += --accept_eula 1
 QUARTUS_RUN_OPT += --installdir $(QUARTUS_DIR)
 
 QUARTUS_LIBS = libc6:i386 libncurses5:i386 libxtst6:i386 libxft2:i386 libc6:i386 libncurses5:i386 \
-			   libstdc++6:i386 lib32z1 lib32ncurses5 
+			   libstdc++6:i386 lib32z1 lib32ncurses5
+
+QUARTUS_PROFILE = /etc/profile.d/quartus.sh
 
 # Quartus package download
 $(QUARTUS_TAR):
@@ -79,3 +80,7 @@ install_quartus: $(QUARTUS_TAR)
 	# Quartus profile settings
 	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/quartus/bin' | sudo tee -a $(QUARTUS_PROFILE)
 	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/modelsim_ase/bin' | sudo tee -a $(QUARTUS_PROFILE)
+
+	# USB-Blaster udev rules
+    sudo cp 100-altera.rules /etc/udev/rules.d/
+    sudo service udev restart
