@@ -39,19 +39,14 @@ QUARTUS_BIN ?= $(QUARTUS_DIR)/quartus/bin/quartus
 clean:
 	rm -rf $(TMPDIR)
 
-install_quartus: $(QUARTUS_PKG) $(QUARTUS_BIN)
 
 install_quartus_download: $(QUARTUS_PKG)
-install_quartus_deploy: $(QUARTUS_BIN)
 
 $(QUARTUS_PKG):
 	mkdir -p $(TMPDIR)
   ifeq (,$(wildcard $(QUARTUS_PKG)))
-	@echo '# Quartus package download start'
+	# Quartus package download
 	wget -O $@ $(QUARTUS_URL)
-	@echo '# Quartus package download end)'
-  else
-	@echo '# Quartus package found)'
   endif
 
 QUARTUS_RUN_OPT  = --unattendedmodeui minimal
@@ -63,22 +58,18 @@ QUARTUS_RUN_OPT += --installdir $(QUARTUS_DIR)
 QUARTUS_LIBS = libc6:i386 libncurses5:i386 libxtst6:i386 libxft2:i386 libc6:i386 libncurses5:i386 \
 			   libstdc++6:i386 lib32z1 lib32ncurses5 
 
-$(QUARTUS_BIN): $(QUARTUS_PKG)
-	@echo '# Quartus package unpack start)'
+install_quartus: $(QUARTUS_PKG)
+	# Quartus package unpack
 	cd $(TMPDIR); tar -xf $(QUARTUS_PKG)
-	@echo '# Quartus package unpack end)'
 
-	@echo '# Quartus package dependences install start)'
+	# Quartus package dependences install
 	sudo dpkg --add-architecture i386
 	sudo apt update
 	sudo apt install $(QUARTUS_LIBS)
-	@echo '# Quartus package dependences install stop)'
 
-	@echo '# Quartus package install start)'
+	# Quartus package install
 	$(QUARTUS_RUN) $(QUARTUS_RUN_OPT)
-	@echo '# Quartus package install end)'
 
-	@echo '# Quartus profile settings start)'
+	# Quartus profile settings
 	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/quartus/bin' | sudo tee -a $@
 	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/modelsim_ase/bin' | sudo tee -a $@
-	@echo '# Quartus profile settings end)'
