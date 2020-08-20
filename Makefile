@@ -71,5 +71,5 @@ install_quartus: $(QUARTUS_PKG)
 	$(QUARTUS_RUN) $(QUARTUS_RUN_OPT)
 
 	# Quartus profile settings
-	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/quartus/bin' | sudo tee -a $@
-	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/modelsim_ase/bin' | sudo tee -a $@
+	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/quartus/bin' | sudo tee -a $(QUARTUS_PROFILE)
+	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/modelsim_ase/bin' | sudo tee -a $(QUARTUS_PROFILE)
