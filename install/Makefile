@@ -83,5 +83,5 @@ install_quartus: $(QUARTUS_TAR)
 	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/modelsim_ase/bin' | sudo tee -a $(QUARTUS_PROFILE)
 
 	# USB-Blaster udev rules
-    sudo cp 100-altera.rules /etc/udev/rules.d/
-    sudo service udev restart
+	sudo cp 100-altera.rules /etc/udev/rules.d/
+	sudo service udev restart
