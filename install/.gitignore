@@ -3,3 +3,5 @@
 !.gitignore
 !100-altera.rules
 !.modelsim
+!wsl.conf
+!wsl.sh
