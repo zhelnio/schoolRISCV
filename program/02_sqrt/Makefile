@@ -23,15 +23,6 @@ RARS = java -jar ../common/rars1_4.jar
 rars:
 	$(RARS)
 
-# simulate with modelsim or icarus 
-# if the first one is not found
-DEFAULT_SIM = modelsim
-ifeq (, $(shell which vsim))
-  DEFAULT_SIM = icarus
-endif
-
-sim: $(DEFAULT_SIM)
-
 #########################################################
 # software build
 build: program.hex
@@ -56,7 +47,7 @@ modelsim: program.hex
 	rm -rf sim
 	mkdir sim
 	cp program.hex sim/
-	cd sim && vsim -do ../../common/modelsim_script.tcl
+	cd sim && $(VSIM) -do ../../common/modelsim_script.tcl
 
 #########################################################
 # simulation in Icarus verilog
@@ -80,3 +71,13 @@ icarus: program.hex
 	
 gtkwave:
 	cd sim && gtkwave dump.vcd
+
+#########################################################
+# simulate with modelsim or icarus 
+# if the first one is not found
+DEFAULT_SIM = modelsim
+ifeq (, $(shell which $(VSIM)))
+  DEFAULT_SIM = icarus
+endif
+
+sim: $(DEFAULT_SIM)

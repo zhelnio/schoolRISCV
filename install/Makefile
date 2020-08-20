@@ -5,7 +5,13 @@ install:
 	# toolchain + simulator
 	$(MAKE) install_tools
 
+ifdef WSL_DISTRO_NAME
+	# WSL fix
+	$(MAKE) install_wsl
+endif
+
 ifndef WSL_DISTRO_NAME
+	# This soft have to be installed on host system, not guest
 	# Visual Studio Code
 	$(MAKE) install_vscode
 	# Quartus
@@ -86,3 +92,8 @@ install_quartus: $(QUARTUS_TAR)
 	# USB-Blaster udev rules
 	sudo cp 100-altera.rules /etc/udev/rules.d/
 	sudo service udev restart
+
+##################################################################################
+# quartus install commands
+install_wsl:
+	sudo cp wsl.conf /etc/
