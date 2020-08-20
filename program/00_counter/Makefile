@@ -46,6 +46,12 @@ board: program.hex
 
 #########################################################
 # simulation in modelsim
+
+VSIM := vsim
+ifdef WSL_DISTRO_NAME
+VSIM := $(VSIM).exe
+endif
+
 modelsim: program.hex
 	rm -rf sim
 	mkdir sim
