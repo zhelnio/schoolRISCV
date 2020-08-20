@@ -67,6 +67,7 @@ $(QUARTUS_TAR):
 
 install_quartus: $(QUARTUS_TAR)
 	# Quartus package unpack
+	mkdir -p $(QUARTUS_TMP)
 	tar -xf $(QUARTUS_TAR) -C $(QUARTUS_TMP)
 
 	# Quartus package dependences install
