@@ -11,7 +11,7 @@ ifdef WSL_DISTRO_NAME
 endif
 
 ifndef WSL_DISTRO_NAME
-	# This soft have to be installed on host system, not guest
+	# For Windows 10 this soft have to be installed on host system, not WSL guest
 	# Visual Studio Code
 	$(MAKE) install_vscode
 	# Quartus
@@ -64,7 +64,8 @@ QUARTUS_RUN_OPT += --accept_eula 1
 QUARTUS_RUN_OPT += --installdir $(QUARTUS_DIR)
 
 QUARTUS_LIBS = libc6:i386 libncurses5:i386 libxtst6:i386 libxft2:i386 libc6:i386 libncurses5:i386 \
-			   libstdc++6:i386 lib32z1 lib32ncurses5-dev
+			   libstdc++6:i386 
+			   #lib32z1 lib32ncurses5-dev
 
 QUARTUS_PROFILE = /etc/profile.d/quartus.sh
 
