@@ -3,11 +3,14 @@
 install:
 	# toolchain + simulator
 	$(MAKE) install_tools
-ifndef WSLENV
+
+ifndef WSLENV # not installed in WSL
 	# Visual Studio Code
 	$(MAKE) install_vscode
 	# Quartus
+  ifeq (, $(shell which quartus))
 	$(MAKE) install_quartus
+  endif
 endif
 
 APT_INSTALL = sudo apt-get --yes install
