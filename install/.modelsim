@@ -1,0 +1,10 @@
+[modelsim]
+PrefDefault = waveFont {{Liberation Sans Narrow} 12 normal roman} inactive_bg #e0e0e0 disabled_fg #7fff7fff7fff treeFontV2 {{DejaVu Sans} 12} sb_width 11 menuFontV2 {{DejaVu Sans} 12} light1_bg #e665e665e665 dark1_bg #999999999999 textFontV2 {{Courier 10 Pitch} 12} menuFont {{Liberation Sans Narrow} 12 normal roman} footerFont {{Liberation Sans Narrow} 12 normal roman} waveFontV2 {{DejaVu Sans} 12} treeFont {{Liberation Sans Narrow} 12 normal roman} footerFontV2 {{DejaVu Sans} 12} troughcolor #bfffbfffbfff light1_fg #7fff7fff7fff dark1_fg #3fff3fff3fff fixedFontV2 {{Courier 10 Pitch} 12}
+Main_db_process_forced = -1
+Main_db_step_forced = -1
+Main_db_bookmarks_forced = -1
+Main_db_changeColumn_forced = -1
+Main_db_layout_forced = -1
+Main_db_compile_forced = -1
+Main_db_wave_cursor_forced = -1
+Main_db_standard_forced = -1

@@ -6,7 +6,7 @@ install:
 	$(MAKE) install_tools
 
 ifdef WSL_DISTRO_NAME
-	# WSL fix
+	# WSL settings fix
 	$(MAKE) install_wsl
 endif
 
@@ -93,7 +93,12 @@ install_quartus: $(QUARTUS_TAR)
 	sudo cp 100-altera.rules /etc/udev/rules.d/
 	sudo service udev restart
 
+	# Change Modelsim default font settings & menus visibility
+	cp .modelsim $(HOME)
+
 ##################################################################################
 # quartus install commands
 install_wsl:
+	# change owner of files that were created by windows programs in WSL filesystem
+	# from 'root' to WSL user
 	sudo cp wsl.conf /etc/
