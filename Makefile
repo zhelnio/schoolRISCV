@@ -1,21 +1,33 @@
 
-# common packages
-UBUNTU_PKG  = git make iverilog gtkwave snap
 
-# default java runtime if no one found
-ifeq (, $(shell which java))
-UBUNTU_PKG += default-jre
+install:
+	# toolchain + simulator
+	$(MAKE) install_tools
+ifndef WSLENV
+	# Visual Studio Code
+	$(MAKE) install_vscode
+	# Quartus
+	$(MAKE) install_quartus
 endif
 
-install_ubuntu:
-	# common packages & java
-	sudo apt install $(UBUNTU_PKG)
+APT_INSTALL = sudo apt-get --yes install
+
+install_tools:
+	# common packages
+	$(APT_INSTALL) git make iverilog gtkwave
+	# java
+  ifeq (, $(shell which java))
+	$(APT_INSTALL) default-jre
+  endif
 	# embedded toolchain is prefered
 	# but it is not available in ubuntu 18.04 repo
-	sudo apt install gcc-riscv64-unknown-elf || sudo apt install gcc-riscv64-linux-gnu
+	$(APT_INSTALL) gcc-riscv64-unknown-elf || $(APT_INSTALL) gcc-riscv64-linux-gnu
 
 install_vscode:
+  ifeq (, $(shell which code))
+	$(APT_INSTALL) snap
 	sudo snap install code --classic
+  endif
 	code --install-extension ms-vscode.cpptools
 	code --install-extension zhwu95.riscv
 	code --install-extension eirikpre.systemverilog
@@ -34,13 +46,11 @@ QUARTUS_PROFILE ?= /etc/profile.d/quartus.sh
 # QUARTUS_DIR = /opt/altera/quartus_lite/20.1
 
 QUARTUS_DIR ?= $(HOME)/intelFPGA_lite/20.1
-QUARTUS_BIN ?= $(QUARTUS_DIR)/quartus/bin/quartus
 
 clean:
 	rm -rf $(TMPDIR)
 
-
-install_quartus_download: $(QUARTUS_PKG)
+download_quartus: $(QUARTUS_PKG)
 
 $(QUARTUS_PKG):
 	mkdir -p $(TMPDIR)
