@@ -5,7 +5,7 @@ install:
 	# toolchain + simulator
 	$(MAKE) install_tools
 
-ifndef WSLENV # not installed in WSL
+ifndef WSL_DISTRO_NAME
 	# Visual Studio Code
 	$(MAKE) install_vscode
 	# Quartus
@@ -17,6 +17,7 @@ endif
 APT_INSTALL = sudo apt-get --yes install
 
 install_tools:
+	sudo apt update
 	# common packages
 	$(APT_INSTALL) git make iverilog gtkwave
 	# default jre if no one found
@@ -73,7 +74,7 @@ install_quartus: $(QUARTUS_TAR)
 	# Quartus package dependences install
 	sudo dpkg --add-architecture i386
 	sudo apt update
-	sudo apt install $(QUARTUS_LIBS)
+	$(APT_INSTALL) $(QUARTUS_LIBS)
 
 	# Quartus package install
 	$(QUARTUS_RUN) $(QUARTUS_RUN_OPT)

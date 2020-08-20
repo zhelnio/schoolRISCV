@@ -34,7 +34,7 @@ QUARTUS     := cd $(PROJECT_DIR) && quartus
 QUARTUS_SH  := cd $(PROJECT_DIR) && quartus_sh
 QUARTUS_PGM := cd $(PROJECT_DIR) && quartus_pgm
 
-ifdef WSLENV
+ifdef WSL_DISTRO_NAME
   QUARTUS     := $(QUARTUS).exe
   QUARTUS_SH  := $(QUARTUS_SH).exe
   QUARTUS_PGM := $(QUARTUS_PGM).exe
