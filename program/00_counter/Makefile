@@ -26,12 +26,10 @@ clean:
 	rm -rf sim
 	rm -f *.elf *.dis *.mem *.hex
 
-# run rars
-RARS = java -jar ../common/rars1_4.jar
-
 # make rars
 #  java -jar ../common/rars1_4.jar
 #  * run rars1_4.jar application using java machine
+RARS = java -jar ../common/rars1_4.jar
 rars:
 	$(RARS)
 
