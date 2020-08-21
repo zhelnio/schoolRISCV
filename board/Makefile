@@ -1,6 +1,15 @@
-
 # small piece of Makefile magic to simplify code support
 # this is only for schoolRISCV maintainers
+#
+# Stanislav Zhelnio, 2020
+#
+
+help:
+	$(info make help     - show this message (default))
+	$(info make copy     - copy de10_lite/Makefile to other altera board dirs)
+	$(info make clean    - clean in all board dirs)
+	$(info make build    - build in all board dirs)
+	@true
 
 BOARDS_ALL = $(filter-out program/., $(wildcard */.))
 
