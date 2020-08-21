@@ -120,8 +120,9 @@ module sm_testbench;
 
         if (cycle > `SIMULATION_CYCLES)
         begin
+            cycle = 0;
             $display ("Timeout");
-            $finish;
+            $stop;
         end
     end
 

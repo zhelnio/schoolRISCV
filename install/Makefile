@@ -103,5 +103,5 @@ install_wsl:
 	# change owner of files that were created by windows programs in WSL filesystem
 	# from 'root' to WSL user
 	sudo cp wsl.conf /etc/
-	# WSL 1 profile settings
+	# WSL 1 profile settings to set DISPLAY for X apps
 	sudo cp wsl.sh /etc/profile.d/
