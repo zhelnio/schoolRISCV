@@ -27,8 +27,7 @@ clean:
 	rm -f *.elf *.dis *.mem *.hex
 
 # make rars
-#  java -jar ../common/rars1_4.jar
-#  * run rars1_4.jar application using java machine
+#  java -jar ../common/rars1_4.jar - run rars1_4.jar application using java machine
 RARS = java -jar ../common/rars1_4.jar
 rars:
 	$(RARS)
@@ -39,10 +38,10 @@ build: program.hex
 
 # make program.hex - compile to hex memory image using RARS
 #  java -jar ../common/rars1_4.jar nc a dump .text HexText program.hex main.S
-#  * java -jar ../common/rars1_4.jar - run rars1_4.jar application using java machine
-#  * nc                              - copyright notice will not be displayed
-#  * a                               - assemble only, do not simulate
-#  * dump .text HexText program.hex  - dump segment .text to program.hex file in HexText format
+#    java -jar ../common/rars1_4.jar - run rars1_4.jar application using java machine
+#    nc                              - copyright notice will not be displayed
+#    a                               - assemble only, do not simulate
+#    dump .text HexText program.hex  - dump segment .text to program.hex file in HexText format
 program.hex: main.S
 	$(RARS) nc a dump .text HexText program.hex main.S
 
@@ -65,10 +64,10 @@ ifdef WSL_DISTRO_NAME
 endif
 
 # make modelsim - start simulation using modelsim
-#  * rm -rf sim; mkdir sim;               - recreate simulation folder
-#  * cp *.hex sim/                        - copy memory image (program.hex) inside it
-#  * cd sim && vsim                       - go to simulation folder and start modelsim
-#  * -do ../../common/modelsim_script.tcl - run modelsim_script.tcl with simulation commands
+#    rm -rf sim; mkdir sim;               - recreate simulation folder
+#    cp *.hex sim/                        - copy memory image (program.hex) inside it
+#    cd sim && vsim                       - go to simulation folder and start modelsim
+#    -do ../../common/modelsim_script.tcl - run modelsim_script.tcl with simulation commands
 modelsim: program.hex
 	rm -rf sim
 	mkdir sim
@@ -89,19 +88,19 @@ IVARG += ../../../src/*.v
 IVARG += ../../../testbench/*.v
 
 # make icarus - run compilation using Icarus Verilog simulator
-#  * rm -rf sim; mkdir sim; - recreate simulation folder
-#  * cp *.hex sim/          - copy memory image (program.hex) inside it
-#  * cd sim && iverilog     - go to simulation folder and start Icarus Verilog compiler
+#    rm -rf sim; mkdir sim; - recreate simulation folder
+#    cp *.hex sim/          - copy memory image (program.hex) inside it
+#    cd sim && iverilog     - go to simulation folder and start Icarus Verilog compiler
 #                             it will produced the compiled simulation script sim/a.out
-#    * -g2005                 - Verilog Specification version
-#    * -D ICARUS              - define ICARUS verilog macro (the same as `define)
-#    * -I ../                 - path to search for `include files
-#    * -s sm_testbench        - use sm_testbench as top level module
-#    * ../../../src/*.v       - complie all the verilog sources from ../../../src/ folder
-#  * cd sim && vvp          - go to simulation folder and start Icarus Verilog runtime engine
-#    * -n                     - makes $stop a synonym for $finish
-#    * -la.lst                - write log to file a.lst
-#    * a.out                  - run a.out simulation
+#      -g2005                 - Verilog Specification version
+#      -D ICARUS              - define ICARUS verilog macro (the same as `define)
+#      -I ../                 - path to search for `include files
+#      -s sm_testbench        - use sm_testbench as top level module
+#      ../../../src/*.v       - complie all the verilog sources from ../../../src/ folder
+#    cd sim && vvp          - go to simulation folder and start Icarus Verilog runtime engine
+#      -n                     - makes $stop a synonym for $finish
+#      -la.lst                - write log to file a.lst
+#      a.out                  - run a.out simulation
 icarus: program.hex
 	rm -rf sim
 	mkdir sim

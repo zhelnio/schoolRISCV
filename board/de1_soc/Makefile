@@ -57,29 +57,29 @@ endif
 
 # make open
 #  cd project && quartus <projectname> &
-#   * cd project            - go to project folder 
-#	* &&                    - if previous command was successfull
-#   * quartus <projectname> - open <projectname> in quartus 
-#   * &                     - run previous command in shell background
+#     cd project            - go to project folder 
+#	  &&                    - if previous command was successfull
+#     quartus <projectname> - open <projectname> in quartus 
+#     &                     - run previous command in shell background
 open: $(PROJECT_DIR)
 	$(QUARTUS) $(PROJECT_NAME) &
 
 # make build
 #  cd project && quartus_sh --flow compile <projectname>
-#   * cd project                              - go to project folder 
-#	* &&                                      - if previous command was successfull
-#   * quartus_sh --flow compile <projectname> - run quartus shell & perform basic compilation 
+#     cd project                              - go to project folder 
+#     &&                                      - if previous command was successfull
+#     quartus_sh --flow compile <projectname> - run quartus shell & perform basic compilation 
 #                                               of <projectname> project
 build: $(PROJECT_DIR)
 	$(QUARTUS_SH) --flow compile $(PROJECT_NAME)
 
 # make load
 #  cd project && quartus_pgm -c "USB-Blaster" -m JTAG -o "p;<projectname>.sof"
-#   * cd project               - go to project folder 
-#	* &&                       - if previous command was successfull
-#   * quartus_pgm              - launch quartus programmer
-#   * -c "USB-Blaster"         - connect to "USB-Blaster" cable
-#   * -m JTAG                  - in JTAG programming mode
-#   * -o "p;<projectname>.sof" - program (configure) FPGA with <projectname>.sof file
+#     cd project               - go to project folder 
+#	  &&                       - if previous command was successfull
+#     quartus_pgm              - launch quartus programmer
+#     -c "USB-Blaster"         - connect to "USB-Blaster" cable
+#     -m JTAG                  - in JTAG programming mode
+#     -o "p;<projectname>.sof" - program (configure) FPGA with <projectname>.sof file
 load:
 	$(QUARTUS_PGM) -c $(CABLE_NAME) -m JTAG -o "p;$(PROJECT_NAME).sof"
