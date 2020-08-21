@@ -3,6 +3,7 @@
 # Stanislav Zhelnio, 2020
 #
 
+# default target to run when make is called without args
 default: create
 
 help:
