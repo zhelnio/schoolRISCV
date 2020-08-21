@@ -1,5 +1,30 @@
 #!/usr/bin/env python3
 
+"""Verilog readmemh HEX file converter
+
+Converts 'objcopy -O verilog' 8-bit output to 32-bit output.
+
+Usage:
+    hex32.py [-h] input output
+
+    positional arguments:
+      input       input file path
+      output      output file path
+
+    optional arguments:
+      -h, --help  show this help message and exit
+
+Example input:
+    @00000000
+    13 05 00 00 13 05 15 00 E3 0E 00 FE
+
+Output:
+    @00000000
+    00000513
+    00150513
+    fe000ee3
+"""
+
 import fileinput
 import argparse
 
