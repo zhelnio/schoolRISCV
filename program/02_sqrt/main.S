@@ -1,3 +1,7 @@
+# RISC-V sqrt program
+#
+# Stanislav Zhelnio, 2020
+#
 
 ## unsigned isqrt (unsigned x) {
 ##     unsigned m, y, b;

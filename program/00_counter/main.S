@@ -1,3 +1,7 @@
+# RISC-V simple counter program
+#
+# Stanislav Zhelnio, 2020
+#
 
             .text
 
