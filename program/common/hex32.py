@@ -28,6 +28,10 @@ Output:
 import fileinput
 import argparse
 
+__author__ = "Stanislav Zhelnio"
+__license__ = "MIT"
+__version__ = "0.1"
+
 def line_process(line, out):
     line = line.lower()
 

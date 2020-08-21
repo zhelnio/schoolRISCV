@@ -1,3 +1,12 @@
+/*
+ * schoolRISCV - small RISC-V CPU 
+ *
+ * originally based on Sarah L. Harris MIPS CPU 
+ *                   & schoolMIPS project
+ * 
+ * Copyright(c) 2017-2020 Stanislav Zhelnio 
+ *                        Aleksandr Romanov 
+ */ 
 
 //hardware top level module
 module sm_top

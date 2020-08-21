@@ -2,7 +2,7 @@
  * schoolRISCV - small RISC-V CPU 
  *
  * originally based on Sarah L. Harris MIPS CPU 
- *                   & schoolMIPS project (https://github.com/MIPSfpga/schoolMIPS)
+ *                   & schoolMIPS project
  * 
  * Copyright(c) 2017-2020 Stanislav Zhelnio 
  *                        Aleksandr Romanov 
