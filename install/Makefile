@@ -91,17 +91,17 @@ install_quartus: $(QUARTUS_TAR)
 	echo 'export PATH=$$PATH:$(QUARTUS_DIR)/modelsim_ase/bin' | sudo tee -a $(QUARTUS_PROFILE)
 
 	# USB-Blaster udev rules
-	sudo cp 100-altera.rules /etc/udev/rules.d/
+	sudo cp files/100-altera.rules /etc/udev/rules.d/
 	sudo service udev restart
 
 	# Change Modelsim default font settings & menus visibility
-	cp .modelsim $(HOME)
+	cp files/.modelsim $(HOME)
 
 ##################################################################################
 # quartus install commands
 install_wsl:
 	# change owner of files that were created by windows programs in WSL filesystem
 	# from 'root' to WSL user
-	sudo cp wsl.conf /etc/
+	sudo cp files/wsl.conf /etc/
 	# WSL 1 profile settings to set DISPLAY for X apps
-	sudo cp wsl.sh /etc/profile.d/
+	sudo cp files/wsl.sh /etc/profile.d/
