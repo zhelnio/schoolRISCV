@@ -1,6 +1,16 @@
 
 # HDL tools install
 
+Tools list:
+
+* Icarus Verilog
+* GTKWave
+* Intel Quartus Prime Lite
+* RISC-V toolchain
+* Visual Studio Code & extensions
+* Make
+* Git
+
 Supported OS:
 
 * Ubuntu 18.04
