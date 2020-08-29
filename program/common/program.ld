@@ -7,4 +7,8 @@ ENTRY(hwreset)
 SECTIONS
 {
   .text = .;
+  /DISCARD/ :
+  {
+    *(.note.gnu.build-id)
+  }
 }
