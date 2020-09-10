@@ -27,10 +27,11 @@ clean:
 	rm -f *.elf *.dis *.mem *.hex
 
 # make rars
-#  java -jar ../common/rars1_4.jar - run rars1_4.jar application using java machine
+#  java -jar ../common/rars1_4.jar & - run rars1_4.jar application using java machine
+#									   in background
 RARS = java -jar ../common/rars1_4.jar
 rars:
-	$(RARS)
+	$(RARS) &
 
 #########################################################
 # software build
