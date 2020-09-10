@@ -76,11 +76,10 @@ program.elf: main.S
 #    -M no-aliases             - disassembler-options; Print the 'raw' instruction 
 #                                mnemonic instead of some pseudo instruction mnemonic
 #    -D                        - disassemble the contents of all sections
-#    -j .text                  - Display information only for section .text
 #    program.elf               - input file
 #    > program.dis             - redirect output to program.dis
 program.dis: program.elf
-	$(OD) -M no-aliases -D -j .text $< > $@
+	$(OD) -M no-aliases -D $< > $@
 
 # dump program to memory image HEX file
 #  Makefile automatic variables:
