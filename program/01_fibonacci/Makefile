@@ -46,7 +46,7 @@ program.hex: main.S
 	$(RARS) nc a dump .text HexText program.hex main.S
 
 # make board - copy to board
-#  copies program.hext to board/program where is will be searched with sinthesys tools
+#  copies program.hext to board/program where is will be searched with synthesis tools
 board: program.hex
 	cp ./program.hex ../../board/program
 
