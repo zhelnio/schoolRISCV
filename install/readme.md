@@ -25,6 +25,8 @@ You can choose any way of installation:
 
 ## Ubuntu automatic install
 
+[Installation example video](https://yadi.sk/d/t6FUr7X0kmpSJg/video/u18_install.webm)
+
 1. Download schoolRISCV and launch installation
 
     ```bash
@@ -37,6 +39,8 @@ You can choose any way of installation:
 1. Log out & log in again to apply profile settings changes
 
 ## Virtual machine with preinstalled HDL tools
+
+[VM import example video](https://yadi.sk/d/t6FUr7X0kmpSJg/video/vbox_install.webm)
 
 1. Download & Install [Oracle VM VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 1. Download virtual machine [image](https://yadi.sk/d/t6FUr7X0kmpSJg) (Ubuntu 18.04 or Ubuntu 20.04)
@@ -148,6 +152,8 @@ You can choose any way of installation:
 1. Log out & log in again to apply profile settings changes
 
 ## Windows 10 install
+
+[Installation example video](https://yadi.sk/d/t6FUr7X0kmpSJg/video/w10_install.webm)
 
 1. Install Ubuntu 18.04 or 20.04 on Windows Subsystem for Linux ([Guide](https://wiki.ubuntu.com/WSL))
 
