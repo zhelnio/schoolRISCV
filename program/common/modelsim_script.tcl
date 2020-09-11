@@ -4,7 +4,6 @@ vlib work
 
 # compile sources
 vlog -vlog01compat \
-     +define+SIMULATION \
      +incdir+../../../src \
      +incdir+../../../testbench \
      ../../../src/*.v \
