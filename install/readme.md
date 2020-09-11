@@ -3,9 +3,9 @@
 
 Tools list:
 
+* Intel Quartus Prime Lite & Mentor Modelsim ASE
 * Icarus Verilog
 * GTKWave
-* Intel Quartus Prime Lite
 * RISC-V toolchain
 * Visual Studio Code & extensions
 * Make
@@ -16,6 +16,12 @@ Supported OS:
 * Ubuntu 18.04
 * Ubuntu 20.04
 * Windows 10 2004
+
+You can choose any way of installation:
+1. Ubuntu automatic install (preferred)
+1. Virtual machine with preinstalled HDL tools (Ubuntu)
+1. Ubuntu manual install
+1. Windows 10 install
 
 ## Ubuntu automatic install
 
@@ -29,6 +35,19 @@ Supported OS:
     ```
 
 1. Log out & log in again to apply profile settings changes
+
+## Virtual machine with preinstalled HDL tools
+
+1. Download & Install [Oracle VM VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+1. Download virtual machine [image](https://yadi.sk/d/t6FUr7X0kmpSJg) (Ubuntu 18.04 or Ubuntu 20.04)
+1. VirtualBox --> File --> Import Appliance
+1. Select dowloaded virtual machine .OVA file --> Next --> Import
+1. Log in into virtual machine
+1. Open Terminal on schoolRISCV folder and run
+
+    ```
+    git pull
+    ```
 
 ## Ubuntu manual install
 
