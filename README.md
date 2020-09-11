@@ -6,6 +6,8 @@ Tiny RISCV CPU. Originally based on Sarah L. Harris MIPS CPU ("Digital Design an
 
 ## Docs
 
+[HDL Tools Install](install/readme.md)
+
 [Slides (Russian)](https://raw.githubusercontent.com/wiki/zhelnio/schoolRISCV/doc/schoolRISCV_slides_ru.pdf)
 
 [RISC-V ISA Specification](https://raw.githubusercontent.com/wiki/zhelnio/schoolRISCV/doc/riscv-spec-20191213.pdf)
