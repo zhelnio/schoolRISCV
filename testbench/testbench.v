@@ -64,13 +64,6 @@ module sm_testbench;
         rst_n   = 1;
     end
 
-    //register file reset
-    integer i;
-    initial begin
-        for (i = 0; i < 32; i = i + 1)
-            sm_top.sm_cpu.rf.rf[i] = 0;
-    end
-
     task disasmInstr;
 
         reg [ 6:0] cmdOp;

@@ -10,7 +10,7 @@ vlog -vlog01compat \
      ../../../testbench/*.v
 
 # run simulator
-vsim -voptargs="+acc" -onfinish stop work.sm_testbench
+vsim -voptargs="+acc" work.sm_testbench
 
 # add signals to waveform
 add wave -radix hex sim:/sm_testbench/sm_top/sm_cpu/*
