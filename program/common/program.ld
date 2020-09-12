@@ -10,5 +10,6 @@ SECTIONS
   /DISCARD/ :
   {
     *(.note.gnu.build-id)
+    *(.riscv.attributes)
   }
 }
