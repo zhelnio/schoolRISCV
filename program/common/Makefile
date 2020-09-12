@@ -4,8 +4,6 @@
 #
 
 # default target to run when make is called without args
-default: build
-
 help:
 	$(info make help     - show this message)
 	$(info make clean    - delete folder with simulation data)
