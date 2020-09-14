@@ -241,7 +241,7 @@ You can choose any way of installation:
     * launch the installation **Quartus-lite-20.1.0.711-windows/setup.bat**
     * select set of required options in the installer GUI:
 
-        - Installation directory: /home/user/intelFPGA_lite/20.1
+        - Installation directory: C:\intelFPGA_lite\20.1
         - [x] Quartus Prime
         - [x] Quartus Prime Help
         - [x] Cyclone IV
