@@ -1,4 +1,9 @@
 
+/*
+ * Copyright(c) 2020 Petr Krasnoshchekov
+ *                   Black_Storm
+ */
+
 module omdazz
 (
     input         clk,
