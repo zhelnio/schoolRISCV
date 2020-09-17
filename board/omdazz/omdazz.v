@@ -12,10 +12,10 @@ module omdazz
     // wires & inputs
     wire          clkCpu;
     wire          clkIn     =  clk;
-    wire          rst_n     =  key_sw[0];
-    wire          clkEnable =  key_sw[1];
+    wire          rst_n     =  key_sw[0]; //  s4
+    wire          clkEnable =  key_sw[1]; //  s3
     wire [  3:0 ] clkDevide =  4'b1000;
-    wire [  4:0 ] regAddr   =  key_sw[2] ? 5'h0 : 5'ha; 
+    wire [  4:0 ] regAddr   =  key_sw[2] ? 5'h0 : 5'ha; //  s2
     wire [ 31:0 ] regData;
 
     //cores
