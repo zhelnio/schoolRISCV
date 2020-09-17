@@ -1,0 +1,67 @@
+
+set_global_assignment   -name FAMILY "Cyclone IV E"
+
+# set_global_assignment -name DEVICE                    EP4CE6E22C8
+  set_global_assignment -name DEVICE                    EP4CE10E22C8
+
+set_global_assignment   -name NUM_PARALLEL_PROCESSORS   4
+set_global_assignment   -name PROJECT_OUTPUT_DIRECTORY  .
+
+set_global_assignment   -name TOP_LEVEL_ENTITY omdazz
+
+set_global_assignment   -name SEARCH_PATH  ..
+set_global_assignment   -name VERILOG_FILE ../omdazz.v
+set_global_assignment   -name SDC_FILE     ./omdazz.sdc
+
+set_global_assignment -name VERILOG_FILE ../omdazz.v
+
+set_global_assignment -name VERILOG_FILE ../../../src/sr_cpu.v
+set_global_assignment -name VERILOG_FILE ../../../src/sm_hex_display.v
+set_global_assignment -name VERILOG_FILE ../../../src/sm_register.v
+set_global_assignment -name VERILOG_FILE ../../../src/sm_rom.v
+set_global_assignment -name VERILOG_FILE ../../../src/sm_top.v
+
+set_global_assignment -name SEARCH_PATH ..
+set_global_assignment -name SEARCH_PATH ../../program
+set_global_assignment -name SEARCH_PATH ../../../src
+
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to *
+
+set_global_assignment   -name RESERVE_ALL_UNUSED_PINS_WEAK_PULLUP "AS INPUT TRI-STATED"
+set_global_assignment   -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+
+set_location_assignment PIN_23  -to clk
+set_location_assignment PIN_25  -to reset_n
+
+set_location_assignment PIN_91  -to key_sw[0]
+set_location_assignment PIN_90  -to key_sw[1]
+set_location_assignment PIN_89  -to key_sw[2]
+set_location_assignment PIN_88  -to key_sw[3]
+
+set_location_assignment PIN_87  -to led[0]
+set_location_assignment PIN_86  -to led[1]
+set_location_assignment PIN_85  -to led[2]
+set_location_assignment PIN_84  -to led[3]
+
+set_location_assignment PIN_127 -to abcdefgh[0]
+set_location_assignment PIN_124 -to abcdefgh[1]
+set_location_assignment PIN_126 -to abcdefgh[2]
+set_location_assignment PIN_132 -to abcdefgh[3]
+set_location_assignment PIN_129 -to abcdefgh[4]
+set_location_assignment PIN_125 -to abcdefgh[5]
+set_location_assignment PIN_121 -to abcdefgh[6]
+set_location_assignment PIN_128 -to abcdefgh[7]
+
+set_location_assignment PIN_133 -to digit[0]
+set_location_assignment PIN_135 -to digit[1]
+set_location_assignment PIN_136 -to digit[2]
+set_location_assignment PIN_137 -to digit[3]
+
+set_location_assignment PIN_110 -to buzzer
+
+set_location_assignment PIN_101 -to hsync
+set_location_assignment PIN_103 -to vsync
+
+set_location_assignment PIN_104 -to rgb[0]
+set_location_assignment PIN_105 -to rgb[1]
+set_location_assignment PIN_106 -to rgb[2]
