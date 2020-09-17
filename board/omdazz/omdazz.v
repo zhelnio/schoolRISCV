@@ -51,12 +51,15 @@ module omdazz
     wire [ 7:0] anodes;
     assign digit = anodes [ 3:0];
 
+    wire [6:0] seven_segments;
+    assign {abcdefgh[1],abcdefgh[2],abcdefgh[3],abcdefgh[4],abcdefgh[5],abcdefgh[6],abcdefgh[7]} = seven_segments;
+
     sm_hex_display_8 sm_hex_display_8
     (
         .clock          ( clkHex        ),
         .resetn         ( rst_n         ),
         .number         ( data /* h7segment */ ),
-        .seven_segments ( abcdefgh[1:7]   ),
+        .seven_segments ( seven_segments   ),
         .dot            ( abcdefgh[0]   ),
         .anodes         ( anodes        )
     );
