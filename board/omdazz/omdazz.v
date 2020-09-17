@@ -56,7 +56,7 @@ module omdazz
         .clock          ( clkHex        ),
         .resetn         ( rst_n         ),
         .number         ( data /* h7segment */ ),
-        .seven_segments ( abcdefgh[7:1] ),
+        .seven_segments ( abcdefgh[1:7]   ),
         .dot            ( abcdefgh[0]   ),
         .anodes         ( anodes        )
     );
