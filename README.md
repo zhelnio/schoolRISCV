@@ -8,6 +8,8 @@ Tiny RISCV CPU. Originally based on Sarah L. Harris MIPS CPU ("Digital Design an
 
 [HDL Tools Install](install/readme.md)
 
+[Videos (Russian)](https://www.youtube.com/watch?v=w1F6aHfiuZ0&list=PL7J5ZgBGsxn6rquSuWO07kUk_YJrQnXec)
+
 [Slides (Russian)](https://raw.githubusercontent.com/wiki/zhelnio/schoolRISCV/doc/schoolRISCV_slides_ru.pdf)
 
 [New Instruction Example (Russian)](https://raw.githubusercontent.com/wiki/zhelnio/schoolRISCV/doc/schoolRISCV_steps_ru.pdf)
