@@ -25,7 +25,7 @@ You can choose any way of installation:
 
 ## Ubuntu automatic install
 
-[Installation example video](https://yadi.sk/d/t6FUr7X0kmpSJg/video/u18_install.webm)
+[Installation example video](https://www.youtube.com/watch?v=dMqLNLOHOMg&list=PL7J5ZgBGsxn6rquSuWO07kUk_YJrQnXec)
 
 1. Download schoolRISCV and launch installation
 
@@ -40,7 +40,7 @@ You can choose any way of installation:
 
 ## Virtual machine with preinstalled HDL tools
 
-[VM import example video](https://yadi.sk/d/t6FUr7X0kmpSJg/video/vbox_install.webm)
+[VM import example video](https://www.youtube.com/watch?v=qheliCHj1h4&list=PL7J5ZgBGsxn6rquSuWO07kUk_YJrQnXec)
 
 1. Download & Install [Oracle VM VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 1. Download virtual machine [image](https://yadi.sk/d/t6FUr7X0kmpSJg) (Ubuntu 18.04 or Ubuntu 20.04)
@@ -153,7 +153,7 @@ You can choose any way of installation:
 
 ## Windows 10 install
 
-[Installation example video](https://yadi.sk/d/t6FUr7X0kmpSJg/video/w10_install.webm)
+[Installation example video](https://www.youtube.com/watch?v=ncTCohAgFPU&list=PL7J5ZgBGsxn6rquSuWO07kUk_YJrQnXec)
 
 1. Install Ubuntu 18.04 or 20.04 on Windows Subsystem for Linux ([Guide](https://wiki.ubuntu.com/WSL))
 
