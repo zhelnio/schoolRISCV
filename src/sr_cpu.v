@@ -145,7 +145,8 @@ module sr_decode
         immB[    0] = 1'b0;
         immB[ 4: 1] = instr[11:8];
         immB[10: 5] = instr[30:25];
-        immB[31:11] = { 21 {instr[31]} };
+        immB[   11] = instr[7];
+        immB[31:12] = { 20 {instr[31]} };
     end
 
     // U-immediate
