@@ -28,7 +28,7 @@ module de4_230
     wire          clkIn     =  OSC_50_BANK2;
     wire          rst_n     =  CPU_RESET_n;
     wire          clkEnable =  SW [7] | ~BUTTON[0];
-    wire [  3:0 ] clkDevide =  SW [3:0];
+    wire [  3:0 ] clkDivide =  SW [3:0];
     wire [  4:0 ] regAddr   =  { ~BUTTON[1], SLIDE_SW };
     wire [ 31:0 ] regData;
 
@@ -37,7 +37,7 @@ module de4_230
     (
         .clkIn      ( clkIn     ),
         .rst_n      ( rst_n     ),
-        .clkDevide  ( clkDevide ),
+        .clkDivide  ( clkDivide ),
         .clkEnable  ( clkEnable ),
         .clk        ( clk       ),
         .regAddr    ( regAddr   ),

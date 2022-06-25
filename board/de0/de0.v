@@ -84,7 +84,7 @@ module de0_top
     wire          clkIn     =  CLOCK_50;
     wire          rst_n     =  BUTTON[0];
     wire          clkEnable =  SW [9] | ~BUTTON[1];
-    wire [  3:0 ] clkDevide =  SW [8:5];
+    wire [  3:0 ] clkDivide =  SW [8:5];
     wire [  4:0 ] regAddr   =  SW [4:0];
     wire [ 31:0 ] regData;
 
@@ -93,7 +93,7 @@ module de0_top
     (
         .clkIn      ( clkIn     ),
         .rst_n      ( rst_n     ),
-        .clkDevide  ( clkDevide ),
+        .clkDivide  ( clkDivide ),
         .clkEnable  ( clkEnable ),
         .clk        ( clk       ),
         .regAddr    ( regAddr   ),

@@ -43,7 +43,7 @@ module nexys4_ddr
     wire          clkIn     =  CLK100MHZ;
     wire          rst_n     =  CPU_RESETN;
     wire          clkEnable =  SW [9] | BTNU;
-    wire [  3:0 ] clkDevide =  SW [8:5];
+    wire [  3:0 ] clkDivide =  SW [8:5];
     wire [  4:0 ] regAddr   =  SW [4:0];
     wire [ 31:0 ] regData;
 
@@ -52,7 +52,7 @@ module nexys4_ddr
     (
         .clkIn      ( clkIn     ),
         .rst_n      ( rst_n     ),
-        .clkDevide  ( clkDevide ),
+        .clkDivide  ( clkDivide ),
         .clkEnable  ( clkEnable ),
         .clk        ( clk       ),
         .regAddr    ( regAddr   ),
@@ -71,7 +71,7 @@ module nexys4_ddr
     (
         .clkIn   ( clkIn  ),
         .rst_n   ( rst_n  ),
-        .devide  ( 4'b1   ),
+        .divide  ( 4'b1   ),
         .enable  ( 1'b1   ),
         .clkOut  ( clkHex )
     );

@@ -18,7 +18,7 @@ module max_10_evkit(
     (
         .clkIn      ( clkIn     ),
         .rst_n      ( rst_n     ),
-        .clkDevide  ( 4'b1010   ),
+        .clkDivide  ( 4'b1010   ),
         .clkEnable  ( clkEnable ),
         .clk        ( clk       ),
         .regAddr    ( 4'b0010   ),

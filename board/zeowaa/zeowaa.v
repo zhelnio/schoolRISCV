@@ -14,7 +14,7 @@ module zeowaa
     wire          clkIn     =  clk_50;
     wire          rst_n     =  key[4];
     wire          clkEnable =   ~sw[  7] | ~key[5];
-    wire [  3:0 ] clkDevide = { ~sw[6:5], 2'b00 };
+    wire [  3:0 ] clkDivide = { ~sw[6:5], 2'b00 };
     wire [  4:0 ] regAddr   =   ~sw[4:0];
     wire [ 31:0 ] regData;
 
@@ -23,7 +23,7 @@ module zeowaa
     (
         .clkIn      ( clkIn     ),
         .rst_n      ( rst_n     ),
-        .clkDevide  ( clkDevide ),
+        .clkDivide  ( clkDivide ),
         .clkEnable  ( clkEnable ),
         .clk        ( clkCpu    ),
         .regAddr    ( regAddr   ),
@@ -42,7 +42,7 @@ module zeowaa
     (
         .clkIn   ( clkIn  ),
         .rst_n   ( rst_n  ),
-        .devide  ( 4'b0   ),
+        .divide  ( 4'b0   ),
         .enable  ( 1'b1   ),
         .clkOut  ( clkHex )
     );

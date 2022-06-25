@@ -252,7 +252,7 @@ module golden_top(
     wire          clkIn     =  MAX10_CLK1_50;
     wire          rst_n     =  KEY[0];
     wire          clkEnable =  SW [9] | ~KEY[1];
-    wire [  3:0 ] clkDevide =  SW [8:5];
+    wire [  3:0 ] clkDivide =  SW [8:5];
     wire [  4:0 ] regAddr   =  SW [4:0];
     wire [ 31:0 ] regData;
 
@@ -261,7 +261,7 @@ module golden_top(
     (
         .clkIn      ( clkIn     ),
         .rst_n      ( rst_n     ),
-        .clkDevide  ( clkDevide ),
+        .clkDivide  ( clkDivide ),
         .clkEnable  ( clkEnable ),
         .clk        ( clk       ),
         .regAddr    ( regAddr   ),

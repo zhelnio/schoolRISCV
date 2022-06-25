@@ -19,7 +19,7 @@ module rzrd
     wire          clkIn     =  clk;
     wire          rst_n     =  key_sw[0]; //  s4
     wire          clkEnable =  key_sw[1]; //  s3
-    wire [  3:0 ] clkDevide =  4'b1000;
+    wire [  3:0 ] clkDivide =  4'b1000;
     wire [  4:0 ] regAddr   =  key_sw[2] ? 5'h0 : 5'ha; //  s2
     wire [ 31:0 ] regData;
 
@@ -28,7 +28,7 @@ module rzrd
     (
         .clkIn      ( clkIn     ),
         .rst_n      ( rst_n     ),
-        .clkDevide  ( clkDevide ),
+        .clkDivide  ( clkDivide ),
         .clkEnable  ( clkEnable ),
         .clk        ( clkCpu    ),
         .regAddr    ( regAddr   ),
@@ -47,7 +47,7 @@ module rzrd
     (
         .clkIn   ( clkIn  ),
         .rst_n   ( rst_n  ),
-        .devide  ( 4'b0   ),
+        .divide  ( 4'b0   ),
         .enable  ( 1'b1   ),
         .clkOut  ( clkHex )
     );

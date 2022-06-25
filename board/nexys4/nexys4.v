@@ -35,7 +35,7 @@ module nexys4
     wire          clkIn     =  clk;
     wire          rst_n     =  btnCpuReset;
     wire          clkEnable =  sw [9] | btnU;
-    wire [  3:0 ] clkDevide =  sw [8:5];
+    wire [  3:0 ] clkDivide =  sw [8:5];
     wire [  4:0 ] regAddr   =  sw [4:0];
     wire [ 31:0 ] regData;
 
@@ -44,7 +44,7 @@ module nexys4
     (
         .clkIn      ( clkIn     ),
         .rst_n      ( rst_n     ),
-        .clkDevide  ( clkDevide ),
+        .clkDivide  ( clkDivide ),
         .clkEnable  ( clkEnable ),
         .clk        ( clkCpu    ),
         .regAddr    ( regAddr   ),
@@ -63,7 +63,7 @@ module nexys4
     (
         .clkIn   ( clkIn  ),
         .rst_n   ( rst_n  ),
-        .devide  ( 4'b1   ),
+        .divide  ( 4'b1   ),
         .enable  ( 1'b1   ),
         .clkOut  ( clkHex )
     );

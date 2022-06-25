@@ -17,7 +17,7 @@ module rz_easyFPGA_A21(
     (
         .clkIn      ( clkIn     ),
         .rst_n      ( rst_n     ),
-        .clkDevide  ( 4'b1000   ),
+        .clkDivide  ( 4'b1000   ),
         .clkEnable  ( clkEnable ),
         .clk        ( clk       ),
         .regAddr    ( 4'b0010   ),

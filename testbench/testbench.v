@@ -32,7 +32,7 @@ module sm_testbench;
     (
         .clkIn     ( clk     ),
         .rst_n     ( rst_n   ),
-        .clkDevide ( 4'b0    ),
+        .clkDivide ( 4'b0    ),
         .clkEnable ( 1'b1    ),
         .clk       ( cpuClk  ),
         .regAddr   ( 5'b0    ),
